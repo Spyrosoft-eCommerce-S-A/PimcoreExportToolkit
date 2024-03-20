@@ -161,9 +161,10 @@ class Worker
                         try {
                             $value = null;
                             $name = (string)$attribute->name;
+                            $attributeConfig = (object) array_merge((array) $attribute, (array) $attribute->attributeConfig);
                             if (!empty($attribute->attributeGetterClass)) {
                                 $getter = trim($attribute->attributeGetterClass);
-                                $value = $getter::get($object, $attribute->attributeConfig);
+                                $value = $getter::get($object, $attributeConfig);
                             } else {
                                 if (!empty($attribute->fieldname)) {
                                     $getter = 'get' . ucfirst($attribute->fieldname);
@@ -179,8 +180,7 @@ class Worker
 
                             if (!empty($attribute->attributeInterpreterClass)) {
                                 $interpreter = trim($attribute->attributeInterpreterClass);
-                                $value = $interpreter::interpret($value, $attribute->attributeConfig);
-                            } else {
+                                $value = $interpreter::interpret($value, $attributeConfig);
                             }
 
                             $clusterInterpreter->setData($object, $name, $value);
