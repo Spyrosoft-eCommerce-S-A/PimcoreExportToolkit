@@ -202,7 +202,7 @@ class Worker
             Localizedfield::setGetFallbackValues($originalGetFallbackValues);
         } else {
             Logger::info("Don't adding product " . $object->getId() . ' to export.');
-            $this->deleteFromExport($object);
+            //$this->deleteFromExport($object);
         }
     }
 

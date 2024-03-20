@@ -88,10 +88,10 @@ class ExportService implements LoggerAwareInterface
         }
     }
 
-    public function commitData($objectHook = false, $hookType = 'save')
+    public function commitData(AbstractObject $object, $objectHook = false, $hookType = 'save')
     {
         foreach ($this->workers as $workerName => $worker) {
-            if ($worker->checkIfToConsider($objectHook, $hookType)) {
+            if ($worker->checkClass($object) && $worker->checkIfToConsider($objectHook, $hookType)) {
                 $worker->commitData();
             }
         }
