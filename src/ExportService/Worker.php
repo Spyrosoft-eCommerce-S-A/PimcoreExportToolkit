@@ -241,7 +241,7 @@ class Worker
          */
         $objects = new $listClassName();
         $objects->setUnpublished(true);
-        $objects->setObjectTypes(['object', 'folder', 'variant']);
+        $objects->setObjectTypes(['object', 'variant']);
         if ($this->workerConfig->getConfiguration()->general->queryLanguage) {
             $objects->setLocale($this->workerConfig->getConfiguration()->general->queryLanguage);
             if ($objects instanceof Concrete) {
