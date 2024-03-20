@@ -161,7 +161,7 @@ class Worker
                         try {
                             $value = null;
                             $name = (string)$attribute->name;
-                            $attributeConfig = (object) array_merge((array) $attribute, (array) $attribute->attributeConfig);
+                            $attributeConfig = $attribute;
                             if (!empty($attribute->attributeGetterClass)) {
                                 $getter = trim($attribute->attributeGetterClass);
                                 $value = $getter::get($object, $attributeConfig);
