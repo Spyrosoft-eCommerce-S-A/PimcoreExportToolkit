@@ -6,13 +6,6 @@ services:
     export_toolkit.logger:
         alias: monolog.logger.export_toolkit
 
-    exporttoolkit.event_listener:
-        class: Elements\Bundle\ExportToolkitBundle\EventListener\ExportListener
-        arguments:
-            - "@exporttoolkit.exportservice"
-        tags:
-            - { name: kernel.event_subscriber }
-
     exporttoolkit.exportservice:
         class: Elements\Bundle\ExportToolkitBundle\ExportService
         lazy: true
