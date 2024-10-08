@@ -36,7 +36,7 @@ class ExportListener implements EventSubscriberInterface
             $object = $event->getObject();
             $this->exportService->setUpExport(true);
             $this->exportService->updateExport($object, true);
-            $this->exportService->commitData(true);
+            $this->exportService->commitData($object, true);
         } catch (\Exception $e) {
             Logger::error($e);
         }
@@ -48,7 +48,7 @@ class ExportListener implements EventSubscriberInterface
             $object = $event->getObject();
             $this->exportService->setUpExport(true);
             $this->exportService->updateExport($object, true);
-            $this->exportService->commitData(true);
+            $this->exportService->commitData($object, true);
         } catch (\Exception $e) {
             Logger::error($e);
         }
@@ -61,7 +61,7 @@ class ExportListener implements EventSubscriberInterface
             $object = $event->getObject();
             $this->exportService->setUpExport(true, 'delete');
             $this->exportService->deleteFromExport($object, true);
-            $this->exportService->commitData(true, 'delete');
+            $this->exportService->commitData($object, true, 'delete');
         } catch (\Exception $e) {
             Logger::error($e);
         }

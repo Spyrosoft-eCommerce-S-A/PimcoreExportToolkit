@@ -22,7 +22,7 @@ class ArrayToString implements IInterpreter
     public static function interpret($value, $config = null)
     {
         if (is_array($value)) {
-            $delimiter = $config && $config->delimiter ? $config->delimiter : ',';
+            $delimiter = $config && $config->attributeConfig && $config->delimiter ? $config->delimiter : ',';
             $value = implode($delimiter, $value);
         }
 

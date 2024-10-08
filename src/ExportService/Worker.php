@@ -161,9 +161,10 @@ class Worker
                         try {
                             $value = null;
                             $name = (string)$attribute->name;
+                            $attributeConfig = $attribute;
                             if (!empty($attribute->attributeGetterClass)) {
                                 $getter = trim($attribute->attributeGetterClass);
-                                $value = $getter::get($object, $attribute->attributeConfig);
+                                $value = $getter::get($object, $attributeConfig);
                             } else {
                                 if (!empty($attribute->fieldname)) {
                                     $getter = 'get' . ucfirst($attribute->fieldname);
@@ -179,8 +180,7 @@ class Worker
 
                             if (!empty($attribute->attributeInterpreterClass)) {
                                 $interpreter = trim($attribute->attributeInterpreterClass);
-                                $value = $interpreter::interpret($value, $attribute->attributeConfig);
-                            } else {
+                                $value = $interpreter::interpret($value, $attributeConfig);
                             }
 
                             $clusterInterpreter->setData($object, $name, $value);
@@ -202,7 +202,7 @@ class Worker
             Localizedfield::setGetFallbackValues($originalGetFallbackValues);
         } else {
             Logger::info("Don't adding product " . $object->getId() . ' to export.');
-            $this->deleteFromExport($object);
+            //$this->deleteFromExport($object);
         }
     }
 
@@ -241,7 +241,7 @@ class Worker
          */
         $objects = new $listClassName();
         $objects->setUnpublished(true);
-        $objects->setObjectTypes(['object', 'folder', 'variant']);
+        $objects->setObjectTypes(['object', 'variant']);
         if ($this->workerConfig->getConfiguration()->general->queryLanguage) {
             $objects->setLocale($this->workerConfig->getConfiguration()->general->queryLanguage);
             if ($objects instanceof Concrete) {
@@ -287,7 +287,7 @@ class Worker
     {
         if ($this->workerConfig->getConfiguration()->general->sqlCondition) {
             $list = $this->getObjectList();
-            $list->addConditionParam('o_id = ?', $object->getId());
+            $list->addConditionParam('id = ?', $object->getId());
 
             $idList = $list->loadIdList();
             if (empty($idList)) {
